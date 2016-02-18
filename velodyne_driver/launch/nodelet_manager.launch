@@ -6,9 +6,13 @@
 
 <launch>
 
+  <arg name="remap_velodyne_points" default="velodyne_points"/>
   <!-- start nodelet manager and load driver nodelet -->
   <node pkg="nodelet" type="nodelet" name="velodyne_nodelet_manager"
-        args="manager" />
+        args="manager" >
+        <remap from="velodyne_points" to="$(arg remap_velodyne_points)" />
+  </node>
+  
   <arg name="model" default="64E" />
   <arg name="pcap" default="" />
   <arg name="read_once" default="false" />
@@ -25,6 +29,7 @@
     <param name="repeat_delay" value="$(arg repeat_delay)"/>
     <param name="rpm" value="$(arg rpm)"/>
     <param name="frame_id" value="$(arg frame_id)"/>
+    
   </node>    
 
 </launch>
